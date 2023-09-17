@@ -9,7 +9,7 @@ DOCKER_CONTAINER_NAME="resume-app-container"
 # Define the port mapping (host_port:container_port)
 PORT_MAPPING="8080:80"
 
-# Define the Apache2 virtual host configuration
+# Apache2 virtual host configuration file
 APACHE2_CONFIG_FILE="/etc/apache2/sites-available/default-ssl.conf"
 
 # Check if the Docker image exists locally
@@ -41,6 +41,9 @@ if [[ "$(docker ps -q -f name=$DOCKER_CONTAINER_NAME 2> /dev/null)" != "" ]]; th
       ServerName resume-app.local
       # Make sure to change this so that the files aren't only available locally
       DocumentRoot /var/www/html/
+      # ProxyPass for API requests
+      ProxyPass /resume/ http://localhost:8080/resume/
+      ProxyPassReverse /resume/ http://localhost:8080/resume/
       # Additional Apache2 settings here
   </VirtualHost>
 EOF
@@ -48,8 +51,13 @@ EOF
   # Enable the Apache2 virtual host
   a2ensite default-ssl.conf
 
-  # Reload Apache2 to apply the changes
-  systemctl reload apache2
+  # Check if we have sudo privileges to reload Apache2
+  if [[ $(sudo -n -v 2>&1) == "" ]]; then
+    # We have sudo privileges, so reload Apache2
+    sudo systemctl reload apache2
+  else
+    echo "WARNING: Cannot reload Apache2 without sudo privileges. Please manually reload Apache2."
+  fi
 
   echo "Apache2 configuration completed."
 else

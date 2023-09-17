@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Resume Webpage</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+</head>
+<body>
+<main>
+    <h1>Hello World</h1>
+    <div id="data-container"></div>
+    <div id="date-time"></div>
+    <div id="branch-name"></div>
+    <script>
+    function updateDateTime() {
+      const dateTimeElement = document.getElementById('date-time');
+      const currentDateTime = new Date().toLocaleString();
+      dateTimeElement.textContent = currentDateTime;
+    }
+
+    // Call the updateDateTime function to display the date and time
+    updateDateTime();
+
+    // Refresh the date and time every second
+    setInterval(updateDateTime, 1000);
+
+    // Function to make an AJAX request to the API
+    function fetchData() {
+      fetch('http://localhost:3000/resume') // Replace with your API endpoint
+        .then(response => response.json())
+        .then(data => {
+          // Display the data in the 'data-container' div
+          const dataContainer = document.getElementById('data-container');
+          dataContainer.textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    }
+
+    // Call the fetchData function when the page loads
+    window.addEventListener('load', fetchData);
+
+      // Function to fetch the branch name
+  // Function to fetch the branch name
+  function fetchBranchName() {
+    fetch('http://localhost:3000/api/git-branch')
+      .then((response) => response.json())
+      .then((data) => {
+        const branchName = data.branchName;
+        const branchNameElement = document.getElementById('branch-name');
+        branchNameElement.textContent = `Current Branch: ${branchName}`;
+      })
+      .catch((error) => {
+        console.error('Error fetching branch name:', error);
+      });
+  }
+
+      // Call the updateDateTime function to display the date and time
+      updateDateTime();
+
+      // Refresh the date and time every second
+      setInterval(updateDateTime, 1000);
+
+      // Call the fetchData and fetchBranchName functions when the page loads
+      document.addEventListener('DOMContentLoaded', () => {
+        fetchData(); // Fetch data immediately
+        fetchBranchName(); // Fetch branch name immediately
+      });
+
+
+    </script>
+
+
+</main>
+</body>
+</html>
