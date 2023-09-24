@@ -1,18 +1,13 @@
 #!/bin/bash
 
-# Define your Docker image name
 DOCKER_IMAGE_NAME="resume-app-image"
 
-# Define the name for your Docker container
 DOCKER_CONTAINER_NAME="resume-app-container"
 
-# Define the port mapping (host_port:container_port)
 PORT_MAPPING="8080:80"
 
-# Apache2 virtual host configuration file
 APACHE2_CONFIG_FILE="/etc/apache2/sites-available/default-ssl.conf"
 
-# Check if the Docker image exists locally
 if [[ "$(docker images -q $DOCKER_IMAGE_NAME 2> /dev/null)" == "" ]]; then
   echo "Docker image $DOCKER_IMAGE_NAME not found. Build it first with 'make build-image'"
   exit 1

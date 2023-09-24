@@ -29,7 +29,7 @@
 
     // Function to make an AJAX request to the API
     function fetchData() {
-      fetch('http://localhost:3000/resume') // Replace with your API endpoint
+      fetch('http://localhost:3000/api/resume') // Replace with your API endpoint
         .then(response => response.json())
         .then(data => {
           // Display the data in the 'data-container' div
@@ -44,7 +44,6 @@
     // Call the fetchData function when the page loads
     window.addEventListener('load', fetchData);
 
-      // Function to fetch the branch name
   // Function to fetch the branch name
   function fetchBranchName() {
     fetch('http://localhost:3000/api/git-branch')
@@ -58,12 +57,6 @@
         console.error('Error fetching branch name:', error);
       });
   }
-
-      // Call the updateDateTime function to display the date and time
-      updateDateTime();
-
-      // Refresh the date and time every second
-      setInterval(updateDateTime, 1000);
 
       // Call the fetchData and fetchBranchName functions when the page loads
       document.addEventListener('DOMContentLoaded', () => {
