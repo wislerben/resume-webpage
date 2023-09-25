@@ -22,9 +22,7 @@ class ResumeServiceTest {
 
     ObjectMapper mapper = new ObjectMapper();
 
-    // Parse and then serialize the expected data
     String expectedDataCompacted = mapper.writeValueAsString(mapper.readTree(expectedData));
-    // Parse and then serialize the actual data from the service
     String actualDataCompacted = mapper.writeValueAsString(mapper.readTree(actualData));
 
     assertEquals(expectedDataCompacted, actualDataCompacted);

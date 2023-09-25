@@ -18,7 +18,6 @@ class GitBranchServiceTest {
   void testGetActiveBranchName() {
     String expectedBranchName = "feature/new-feature";
 
-    // Mocking the behavior
     when(gitBranchService.getGitBranch()).thenReturn(expectedBranchName);
 
     String actualBranchName = gitBranchService.getGitBranch();
