@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 <span class="nc" id="L12">            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));</span>
 <span class="nc" id="L13">            String branch = reader.readLine();</span>
 <span class="nc" id="L14">            process.waitFor();</span>
-<span class="nc" id="L15">            return branch;  // Ensure this is just the branch name.</span>
+<span class="nc" id="L15">            return branch;</span>
 <span class="nc" id="L16">        } catch (IOException | InterruptedException e) {</span>
 <span class="nc" id="L17">            e.printStackTrace();</span>
 <span class="nc" id="L18">            return &quot;Error&quot;;</span>

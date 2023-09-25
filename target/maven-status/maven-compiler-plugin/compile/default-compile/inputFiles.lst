@@ -1,5 +1,7 @@
+/mnt/c/Users/bwisl/IdeaProjects/resume-webpage/src/main/java/api/handlers/CoverageFileHandler.java
 /mnt/c/Users/bwisl/IdeaProjects/resume-webpage/src/main/java/api/ResumeApi.java
 /mnt/c/Users/bwisl/IdeaProjects/resume-webpage/src/main/java/api/services/ResumeService.java
+/mnt/c/Users/bwisl/IdeaProjects/resume-webpage/src/main/java/api/handlers/HealthCheckHandler.java
 /mnt/c/Users/bwisl/IdeaProjects/resume-webpage/src/main/java/api/services/DefaultGitBranchService.java
 /mnt/c/Users/bwisl/IdeaProjects/resume-webpage/src/main/java/api/handlers/GitBranchHandler.java
 /mnt/c/Users/bwisl/IdeaProjects/resume-webpage/src/main/java/api/handlers/ResumeHandler.java

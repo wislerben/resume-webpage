@@ -1,12 +1,10 @@
 package api;
 
-import java.io.*;
 import java.util.logging.*;
 
-import com.sun.net.httpserver.Headers;
-import com.sun.net.httpserver.HttpServer;
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpExchange;
+import api.handlers.CoverageFileHandler;
+import api.handlers.HealthCheckHandler;
+import com.sun.net.httpserver.*;
 import java.net.InetSocketAddress;
 
 import api.services.DefaultGitBranchService;
@@ -23,10 +21,17 @@ public class ResumeApi {
 
         try {
             HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+            String currentDirectory = System.getProperty("user.dir");
+            System.out.println("Current Working Directory: " + currentDirectory);
             System.out.println("Server is running on port " + port);
 
             server.createContext("/api/resume", new ResumeHandler(new DefaultResumeService()));
             server.createContext("/api/git-branch", new GitBranchHandler(new DefaultGitBranchService()));
+            //erver.createContext("/api/coverage", new CoverageFileHandler("../site/jacoco"));
+            server.createContext("/jacoco-resources", new CoverageFileHandler("../site/jacoco/jacoco-resources"));
+            server.createContext("/health", new HealthCheckHandler());
+            server.createContext("/", new CoverageFileHandler("../site/jacoco"));
+            server.setExecutor(null);
 
             server.start();
         } catch (java.io.IOException e) {

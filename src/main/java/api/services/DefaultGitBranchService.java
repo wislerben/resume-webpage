@@ -12,7 +12,7 @@ public class DefaultGitBranchService implements GitBranchService {
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String branch = reader.readLine();
             process.waitFor();
-            return branch;  // Ensure this is just the branch name.
+            return branch;
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             return "Error";
