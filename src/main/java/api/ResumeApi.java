@@ -1,38 +1,42 @@
 package api;
 
-import java.util.logging.*;
-
 import api.handlers.CoverageFileHandler;
+import api.handlers.GitBranchHandler;
 import api.handlers.HealthCheckHandler;
-import com.sun.net.httpserver.*;
-import java.net.InetSocketAddress;
-
+import api.handlers.ResumeHandler;
 import api.services.DefaultGitBranchService;
 import api.services.DefaultResumeService;
-import api.handlers.GitBranchHandler;
-import api.handlers.ResumeHandler;
+import com.sun.net.httpserver.HttpServer;/**/
+import java.net.InetSocketAddress;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class ResumeApi {
+public final class ResumeApi {
+  private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+  // Private constructor to prevent instantiation
+  private ResumeApi() {
+    throw new AssertionError("Utility class should not be instantiated");
+  }
 
-    public static void main(String[] args) {
-        int port = 3000;
+  public static void main(final String[] args) {
+    int port = 3000;
 
-        try {
-            HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
-            System.out.println("API server is running on port " + port);
-            System.out.println("Resume webpage: http://localhost:8080");
-            server.createContext("/api/resume", new ResumeHandler(new DefaultResumeService()));
-            server.createContext("/api/git-branch", new GitBranchHandler(new DefaultGitBranchService()));
-            server.createContext("/jacoco-resources", new CoverageFileHandler("../site/jacoco/jacoco-resources"));
-            server.createContext("/health", new HealthCheckHandler());
-            server.createContext("/", new CoverageFileHandler("../site/jacoco"));
-            server.setExecutor(null);
+    try {
+      HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+      System.out.println("API server is running on port " + port);
+      System.out.println("Resume webpage: http://localhost:8080");
+      server.createContext("/api/resume", new ResumeHandler(new DefaultResumeService()));
+      server.createContext("/api/git-branch", new GitBranchHandler(new DefaultGitBranchService()));
+      server.createContext(
+          "/jacoco-resources", new CoverageFileHandler("../site/jacoco/jacoco-resources"));
+      server.createContext("/health", new HealthCheckHandler());
+      server.createContext("/", new CoverageFileHandler("../site/jacoco"));
+      server.setExecutor(null);
 
-            server.start();
-        } catch (java.io.IOException e) {
-            LOGGER.log(Level.SEVERE, "I/O exception thrown", e);
-        }
+      server.start();
+    } catch (java.io.IOException e) {
+      LOGGER.log(Level.SEVERE, "I/O exception thrown", e);
     }
+  }
 }

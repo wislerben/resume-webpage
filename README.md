@@ -1,12 +1,15 @@
 # Resume Web Application
 
-This project is a Resume Web Application showcasing resume data in JSON format, along with additional utilities such as current branch name retrieval, health checks, and test coverage data.
+This project is a Resume Web Application showcasing resume data in JSON format, along with additional utilities such as
+current branch name retrieval, health checks, and test coverage data.
 
-## Prerequisites
+## Requirements
 
 - Docker
 - Java (for local development)
 - Make
+- Maven
+- Ubuntu
 
 ## Quick Start
 
@@ -26,7 +29,9 @@ This project is a Resume Web Application showcasing resume data in JSON format, 
 5. **Cleanup server processes and delete docker image**
     ```bash
    make cleanup
+
 ## Other Commands
+
 1. **Remove old files in target directory and package project**
     ```bash
    mvn-pack
@@ -42,6 +47,7 @@ This project is a Resume Web Application showcasing resume data in JSON format, 
 5. **Cleanup processes**
     ```bash
    make cleanup
-   
+
 ## TEST Design Pattern Documentation Here:
+
 ---------->&emsp; [TEST.md](./TEST.md)

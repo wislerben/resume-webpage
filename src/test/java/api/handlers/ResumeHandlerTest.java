@@ -13,28 +13,28 @@ import static api.HttpConstants.SUCCESS;
 import static org.mockito.Mockito.*;
 
 public class ResumeHandlerTest {
-    private ResumeHandler resumeHandler;
-    private ResumeService mockResumeService;
-    private HttpExchange mockHttpExchange;
-    private OutputStream mockOutputStream;
+  private ResumeHandler resumeHandler;
+  private ResumeService mockResumeService;
+  private HttpExchange mockHttpExchange;
+  private OutputStream mockOutputStream;
 
-    @BeforeEach
-    public void setUp() {
-        mockResumeService = mock(ResumeService.class);
-        mockHttpExchange = mock(HttpExchange.class);
-        mockOutputStream = mock(OutputStream.class);
+  @BeforeEach
+  public void setUp() {
+    mockResumeService = mock(ResumeService.class);
+    mockHttpExchange = mock(HttpExchange.class);
+    mockOutputStream = mock(OutputStream.class);
 
-        when(mockResumeService.getResumeData()).thenReturn("Test Resume Data");
-        when(mockHttpExchange.getResponseBody()).thenReturn(mockOutputStream);
+    when(mockResumeService.getResumeData()).thenReturn("Test Resume Data");
+    when(mockHttpExchange.getResponseBody()).thenReturn(mockOutputStream);
 
-        resumeHandler = new ResumeHandler(mockResumeService);
-    }
+    resumeHandler = new ResumeHandler(mockResumeService);
+  }
 
-    @Test
-    public void testHandle() throws IOException {
-        resumeHandler.handle(mockHttpExchange);
+  @Test
+  public void testHandle() throws IOException {
+    resumeHandler.handle(mockHttpExchange);
 
-        verify(mockHttpExchange, times(1)).sendResponseHeaders(SUCCESS, "Test Resume Data".length());
-        verify(mockOutputStream, times(1)).write("Test Resume Data".getBytes());
-    }
+    verify(mockHttpExchange, times(1)).sendResponseHeaders(SUCCESS, "Test Resume Data".length());
+    verify(mockOutputStream, times(1)).write("Test Resume Data".getBytes());
+  }
 }

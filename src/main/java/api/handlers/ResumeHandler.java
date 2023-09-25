@@ -11,32 +11,32 @@ import static api.HttpConstants.SUCCESS;
 
 public class ResumeHandler implements HttpHandler {
 
-    private final ResumeService resumeService;
+  private final ResumeService resumeService;
 
-    public ResumeHandler(ResumeService resumeService) {
-        this.resumeService = resumeService;
+  public ResumeHandler(final ResumeService resumeService) {
+    this.resumeService = resumeService;
+  }
+
+  @Override
+  public void handle(final HttpExchange exchange) throws IOException {
+    setHeadersForCors(exchange);
+
+    String resumeData = resumeService.getResumeData();
+
+    // Respond to the client
+    byte[] responseBytes = resumeData.getBytes();
+    exchange.sendResponseHeaders(SUCCESS, responseBytes.length);
+    try (OutputStream os = exchange.getResponseBody()) {
+      os.write(responseBytes);
     }
+  }
 
-    @Override
-    public void handle(HttpExchange exchange) throws IOException {
-        setHeadersForCORS(exchange);
-
-        String resumeData = resumeService.getResumeData();
-
-        // Respond to the client
-        byte[] responseBytes = resumeData.getBytes();
-        exchange.sendResponseHeaders(SUCCESS, responseBytes.length);
-        try (OutputStream os = exchange.getResponseBody()) {
-            os.write(responseBytes);
-        }
+  private void setHeadersForCors(final HttpExchange exchange) {
+    Headers headers = exchange.getResponseHeaders();
+    if (headers != null) {
+      headers.add("Access-Control-Allow-Origin", "*");
+      headers.add("Access-Control-Allow-Methods", "GET, POST");
+      headers.add("Access-Control-Allow-Headers", "Content-Type");
     }
-
-    private void setHeadersForCORS(HttpExchange exchange) {
-        Headers headers = exchange.getResponseHeaders();
-        if (headers != null) {
-            headers.add("Access-Control-Allow-Origin", "*");
-            headers.add("Access-Control-Allow-Methods", "GET, POST");
-            headers.add("Access-Control-Allow-Headers", "Content-Type");
-        }
-    }
+  }
 }
