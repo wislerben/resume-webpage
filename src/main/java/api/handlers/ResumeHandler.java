@@ -7,6 +7,8 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import static api.HttpConstants.SUCCESS;
+
 public class ResumeHandler implements HttpHandler {
 
     private final ResumeService resumeService;
@@ -23,7 +25,7 @@ public class ResumeHandler implements HttpHandler {
 
         // Respond to the client
         byte[] responseBytes = resumeData.getBytes();
-        exchange.sendResponseHeaders(200, responseBytes.length);
+        exchange.sendResponseHeaders(SUCCESS, responseBytes.length);
         try (OutputStream os = exchange.getResponseBody()) {
             os.write(responseBytes);
         }
@@ -31,8 +33,10 @@ public class ResumeHandler implements HttpHandler {
 
     private void setHeadersForCORS(HttpExchange exchange) {
         Headers headers = exchange.getResponseHeaders();
-        headers.add("Access-Control-Allow-Origin", "*");
-        headers.add("Access-Control-Allow-Methods", "GET, POST");
-        headers.add("Access-Control-Allow-Headers", "Content-Type");
+        if (headers != null) {
+            headers.add("Access-Control-Allow-Origin", "*");
+            headers.add("Access-Control-Allow-Methods", "GET, POST");
+            headers.add("Access-Control-Allow-Headers", "Content-Type");
+        }
     }
 }

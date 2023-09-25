@@ -21,13 +21,10 @@ public class ResumeApi {
 
         try {
             HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
-            String currentDirectory = System.getProperty("user.dir");
-            System.out.println("Current Working Directory: " + currentDirectory);
-            System.out.println("Server is running on port " + port);
-
+            System.out.println("API server is running on port " + port);
+            System.out.println("Resume webpage: http://localhost:8080");
             server.createContext("/api/resume", new ResumeHandler(new DefaultResumeService()));
             server.createContext("/api/git-branch", new GitBranchHandler(new DefaultGitBranchService()));
-            //erver.createContext("/api/coverage", new CoverageFileHandler("../site/jacoco"));
             server.createContext("/jacoco-resources", new CoverageFileHandler("../site/jacoco/jacoco-resources"));
             server.createContext("/health", new HealthCheckHandler());
             server.createContext("/", new CoverageFileHandler("../site/jacoco"));
