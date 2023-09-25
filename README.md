@@ -6,7 +6,6 @@ current branch name retrieval, health checks, and test coverage data.
 ## Requirements
 
 - Docker
-- Java (for local development)
 - Make
 - Maven
 - Ubuntu
@@ -26,7 +25,7 @@ current branch name retrieval, health checks, and test coverage data.
 
 4. **Navigate to [https://localhost:8080](https://localhost:8080)**
 
-5. **Cleanup server processes and delete docker image**
+5. **Clean up processes and delete docker image**
     ```bash
    make cleanup
 
@@ -44,7 +43,7 @@ current branch name retrieval, health checks, and test coverage data.
 4. **Start API server on port 3000**
     ```bash
    make run-api-server
-5. **Cleanup processes**
+5. **Clean up processes and delete docker image**
     ```bash
    make cleanup
 
