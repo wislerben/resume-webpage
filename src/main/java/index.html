@@ -21,7 +21,7 @@
 </head>
 <body>
 <main>
-    <h1>Hello World</h1>
+    <h1>Welcome to Resume Webpage!</h1>
     <div id="health-status">Backend Status: <span id="health-text">Checking...</span></div>
     <br/>
     <div id="data-container"></div>
@@ -71,58 +71,37 @@
       });
   }
 
-  //////////// make sure this is getting the most up-to-date file
-<!--    function fetchCoverageReport() {-->
-<!--        fetch('http://localhost:3000/')-->
-<!--            .then(response => response.text())-->
-<!--            .then(htmlContent => {-->
-<!--                // Replace relative links with full paths-->
-<!--                htmlContent = htmlContent.replace(/\.\/jacoco-resources\//g, 'http://localhost:3000/jacoco-resources/');-->
+  function checkBackendHealth() {
+        const healthText = document.getElementById('health-text');
 
-<!--                const coverageDiv = document.getElementById('coverage-report');-->
-<!--                coverageDiv.innerHTML = htmlContent;-->
-<!--            })-->
-<!--            .catch(error => {-->
-<!--                console.error('Error fetching coverage report:', error);-->
-<!--            });-->
-<!--    }-->
-
-      function checkBackendHealth() {
-            const healthText = document.getElementById('health-text');
-
-            fetch('http://localhost:3000/health')
-                .then(response => response.text())
-                .then(data => {
-                    if (data === "OK") {
-                        console.log("Backend is healthy");
-                        healthText.textContent = "Healthy";
-                        healthText.className = "healthy";
-                    } else {
-                        console.error("Backend health check did not return OK");
-                        healthText.textContent = "Unhealthy";
-                        healthText.className = "unhealthy";
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching health check:', error);
-                    healthText.textContent = "Unhealthy (Error)";
+        fetch('http://localhost:3000/health')
+            .then(response => response.text())
+            .then(data => {
+                if (data === "OK") {
+                    console.log("Backend is healthy");
+                    healthText.textContent = "Healthy";
+                    healthText.className = "healthy";
+                } else {
+                    console.error("Backend health check did not return OK");
+                    healthText.textContent = "Unhealthy";
                     healthText.className = "unhealthy";
-                });
-        }
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching health check:', error);
+                healthText.textContent = "Unhealthy (Error)";
+                healthText.className = "unhealthy";
+            });
+    }
 
-        // Call the fetchData, fetchBranchName, fetchCoverageReport and checkBackendHealth functions when the page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchData();
-            fetchBranchName();
-            checkBackendHealth();
-        });
-
-
-
+    // Call the fetchData, fetchBranchName, fetchCoverageReport and checkBackendHealth functions when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchData();
+        fetchBranchName();
+        checkBackendHealth();
+    });
 
     </script>
-
-
 </main>
 </body>
 </html>

@@ -8,6 +8,8 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import static api.HttpConstants.SUCCESS;
+
 public class GitBranchHandler implements HttpHandler {
 
     private final GitBranchService gitBranchService;
@@ -26,7 +28,7 @@ public class GitBranchHandler implements HttpHandler {
 
         // Respond to the client
         byte[] responseBytes = jsonResponse.getBytes();
-        exchange.sendResponseHeaders(200, responseBytes.length);
+        exchange.sendResponseHeaders(SUCCESS, responseBytes.length);
         try (OutputStream os = exchange.getResponseBody()) {
             os.write(responseBytes);
         }

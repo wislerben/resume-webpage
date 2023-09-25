@@ -10,6 +10,8 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
+import static api.HttpConstants.*;
+
 public class CoverageFileHandler implements HttpHandler {
     private final String baseDirectory;
 
@@ -57,7 +59,7 @@ public class CoverageFileHandler implements HttpHandler {
             System.out.println("Exception occurred while processing the request: " + e.getMessage());
             e.printStackTrace();  // print the stack trace for more detailed debugging
             try {
-                sendError(httpExchange, 500, "Internal Server Error");
+                sendError(httpExchange, INTERNAL_SERVER_ERROR, "Internal Server Error");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -65,7 +67,7 @@ public class CoverageFileHandler implements HttpHandler {
     }
 
     private void send404(HttpExchange httpExchange) throws IOException {
-        sendError(httpExchange, 404, "404 (Not Found)\n");
+        sendError(httpExchange, NOT_FOUND, "404 (Not Found)\n");
     }
 
     private void serveFile(HttpExchange httpExchange, File file) throws IOException {
@@ -75,7 +77,7 @@ public class CoverageFileHandler implements HttpHandler {
 
         byte[] content = Files.readAllBytes(file.toPath());
 
-        httpExchange.sendResponseHeaders(200, content.length);
+        httpExchange.sendResponseHeaders(SUCCESS, content.length);
         try (OutputStream os = httpExchange.getResponseBody()) {
             os.write(content);
         }

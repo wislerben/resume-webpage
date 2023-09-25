@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
+import static api.HttpConstants.SUCCESS;
+
 public class HealthCheckHandler implements HttpHandler {
 
     @Override
@@ -16,7 +18,7 @@ public class HealthCheckHandler implements HttpHandler {
         headers.add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS, HEAD");
         headers.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
         String responseMessage = "OK";
-        httpExchange.sendResponseHeaders(200, responseMessage.length());
+        httpExchange.sendResponseHeaders(SUCCESS, responseMessage.length());
         try (OutputStream os = httpExchange.getResponseBody()) {
             os.write(responseMessage.getBytes(StandardCharsets.UTF_8));
         }

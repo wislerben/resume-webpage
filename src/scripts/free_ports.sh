@@ -1,6 +1,7 @@
 #!/bin/bash
-
-ports=("8080" "3000")
+APACHE_PORT=8080
+RESUME_PORT=3000
+ports=($APACHE_PORT $RESUME_PORT)
 
 for port in "${ports[@]}"; do
     lsof_pid=$(lsof -t -i :"$port")

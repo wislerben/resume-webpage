@@ -7,6 +7,8 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import static api.HttpConstants.SUCCESS;
+
 public class ResumeHandler implements HttpHandler {
 
     private final ResumeService resumeService;
@@ -23,7 +25,7 @@ public class ResumeHandler implements HttpHandler {
 
         // Respond to the client
         byte[] responseBytes = resumeData.getBytes();
-        exchange.sendResponseHeaders(200, responseBytes.length);
+        exchange.sendResponseHeaders(SUCCESS, responseBytes.length);
         try (OutputStream os = exchange.getResponseBody()) {
             os.write(responseBytes);
         }
