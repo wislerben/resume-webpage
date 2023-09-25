@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HealthCheckHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">resume-webpage</a> &gt; <a href="index.source.html" class="el_package">api.handlers</a> &gt; <span class="el_source">HealthCheckHandler.java</span></div><h1>HealthCheckHandler.java</h1><pre class="source lang-java linenums">package api.handlers;
+
+import com.sun.net.httpserver.Headers;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+
+<span class="nc" id="L10">public class HealthCheckHandler implements HttpHandler {</span>
+
+    @Override
+    public void handle(HttpExchange httpExchange) throws IOException {
+<span class="nc" id="L14">        Headers headers = httpExchange.getResponseHeaders();</span>
+<span class="nc" id="L15">        headers.add(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);</span>
+<span class="nc" id="L16">        headers.add(&quot;Access-Control-Allow-Methods&quot;, &quot;GET, POST, DELETE, PUT, OPTIONS, HEAD&quot;);</span>
+<span class="nc" id="L17">        headers.add(&quot;Access-Control-Allow-Headers&quot;, &quot;Origin, X-Requested-With, Content-Type, Accept, Authorization&quot;);</span>
+<span class="nc" id="L18">        String responseMessage = &quot;OK&quot;;</span>
+<span class="nc" id="L19">        httpExchange.sendResponseHeaders(200, responseMessage.length());</span>
+<span class="nc" id="L20">        try (OutputStream os = httpExchange.getResponseBody()) {</span>
+<span class="nc" id="L21">            os.write(responseMessage.getBytes(StandardCharsets.UTF_8));</span>
+        }
+<span class="nc" id="L23">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

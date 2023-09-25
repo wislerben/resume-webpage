@@ -1,3 +1,9 @@
-api/ResumeApi$GitBranchHandler.class
+api/handlers/GitBranchHandler.class
+api/services/DefaultResumeService.class
+api/services/ResumeService.class
+api/services/GitBranchService.class
+api/handlers/CoverageFileHandler.class
+api/handlers/HealthCheckHandler.class
 api/ResumeApi.class
-api/ResumeApi$ResumeHandler.class
+api/handlers/ResumeHandler.class
+api/services/DefaultGitBranchService.class
