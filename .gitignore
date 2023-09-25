@@ -4,6 +4,9 @@
 # Target compiled folder
 target/
 
+# PID
+src/main/java/api/server.pid
+
 # Log file
 *.log
 

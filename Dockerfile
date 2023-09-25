@@ -13,10 +13,6 @@ WORKDIR /app
 # Copy the Java project and build with Maven
 COPY ./src/main/java /var/www/html
 COPY ./pom.xml .
-#RUN mvn clean package
-
-# Copy the generated artifact (assuming it's a .war or .jar) to the appropriate location
-# Modify this based on your application's needs
 
 # Expose port 80 for Apache
 EXPOSE 80

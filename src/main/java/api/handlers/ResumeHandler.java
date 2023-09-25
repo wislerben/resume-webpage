@@ -33,8 +33,10 @@ public class ResumeHandler implements HttpHandler {
 
     private void setHeadersForCORS(HttpExchange exchange) {
         Headers headers = exchange.getResponseHeaders();
-        headers.add("Access-Control-Allow-Origin", "*");
-        headers.add("Access-Control-Allow-Methods", "GET, POST");
-        headers.add("Access-Control-Allow-Headers", "Content-Type");
+        if (headers != null) {
+            headers.add("Access-Control-Allow-Origin", "*");
+            headers.add("Access-Control-Allow-Methods", "GET, POST");
+            headers.add("Access-Control-Allow-Headers", "Content-Type");
+        }
     }
 }

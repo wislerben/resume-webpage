@@ -23,7 +23,7 @@ This project is a Resume Web Application showcasing resume data in JSON format, 
 
 4. **Navigate to [https://localhost:8080](https://localhost:8080)**
 
-5. **Cleanup processes once done**
+5. **Cleanup server processes and delete docker image**
     ```bash
    make cleanup
 ## Other Commands
@@ -42,3 +42,6 @@ This project is a Resume Web Application showcasing resume data in JSON format, 
 5. **Cleanup processes**
     ```bash
    make cleanup
+   
+## TEST Design Pattern Documentation Here:
+---------->&emsp; [TEST.md](./TEST.md)

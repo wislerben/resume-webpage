@@ -1,6 +1,7 @@
 package api.handlers;
 
 import com.sun.net.httpserver.Headers;
+import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -26,8 +27,18 @@ public class CoverageFileHandler implements HttpHandler {
             headers.add("Access-Control-Allow-Origin", "*");
             headers.add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS, HEAD");
             headers.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+            String cwd = System.getProperty("user.dir");
+            System.out.println("Current working directory using System: " + cwd);
+            String requestedPath;
 
-            String requestedPath = httpExchange.getRequestURI().getPath();
+            try {
+                requestedPath = httpExchange.getRequestURI().getPath();
+                HttpContext context = httpExchange.getHttpContext();
+            } catch (NullPointerException e) {
+                System.err.println("Null pointer exception: unable to proceed.");
+                sendError(httpExchange, INTERNAL_SERVER_ERROR, "Internal Server Error");
+                return;
+            }
             String contextPath = httpExchange.getHttpContext().getPath();
 
             String relativePath = requestedPath.substring(contextPath.length());
@@ -47,12 +58,7 @@ public class CoverageFileHandler implements HttpHandler {
                 System.out.println("Failed to serve file (File not found or not accessible): " + file.getAbsolutePath());
                 send404(httpExchange);
                 return;
-            } else {
-                System.out.println("Successfully serving file: " + file.getAbsolutePath());
             }
-
-            System.out.println("Attempting to serve file from path: " + file.getAbsolutePath());
-
             serveFile(httpExchange, file);
 
         } catch (Exception e) {
@@ -90,8 +96,8 @@ public class CoverageFileHandler implements HttpHandler {
             return "image/gif";
         } else if (name.endsWith(".js")) {
             return "application/javascript";
-        } // ... Add more content type guesses based on file extensions as needed
-        return "text/html"; // default content type (for Jacoco HTML files)
+        }
+        return "text/html";
     }
 
     private void sendError(HttpExchange httpExchange, int statusCode, String responseMessage) throws IOException {
