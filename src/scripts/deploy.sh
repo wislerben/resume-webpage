@@ -8,13 +8,13 @@ PORT_MAPPING="8080:80"
 
 APACHE2_CONFIG_FILE="/etc/apache2/sites-available/default-ssl.conf"
 
-if [[ "$(docker images -q $DOCKER_IMAGE_NAME 2> /dev/null)" == "" ]]; then
+if [[ "$(docker images -q $DOCKER_IMAGE_NAME 2>/dev/null)" == "" ]]; then
   echo "Docker image $DOCKER_IMAGE_NAME not found. Build it first with 'make build-image'"
   exit 1
 fi
 
 # Check if the Docker container is already running
-if [[ "$(docker ps -q -f name=$DOCKER_CONTAINER_NAME 2> /dev/null)" != "" ]]; then
+if [[ "$(docker ps -q -f name=$DOCKER_CONTAINER_NAME 2>/dev/null)" != "" ]]; then
   echo "Stopping and removing existing container: $DOCKER_CONTAINER_NAME"
   docker stop $DOCKER_CONTAINER_NAME
   docker rm $DOCKER_CONTAINER_NAME
@@ -25,12 +25,12 @@ echo "Starting a new container from image $DOCKER_IMAGE_NAME..."
 docker run -d -p $PORT_MAPPING --name $DOCKER_CONTAINER_NAME $DOCKER_IMAGE_NAME
 
 # Check if the container started successfully
-if [[ "$(docker ps -q -f name=$DOCKER_CONTAINER_NAME 2> /dev/null)" != "" ]]; then
+if [[ "$(docker ps -q -f name=$DOCKER_CONTAINER_NAME 2>/dev/null)" != "" ]]; then
   echo "Container $DOCKER_CONTAINER_NAME is running and accessible at http://localhost:8080"
 
   # Apache2 Configuration
   echo "Configuring Apache2..."
-  cat <<EOF > $APACHE2_CONFIG_FILE
+  cat <<EOF >$APACHE2_CONFIG_FILE
   <VirtualHost *:80>
       ServerAdmin bwisler95@gmail.com
       ServerName resume-app.local

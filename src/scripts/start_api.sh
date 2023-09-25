@@ -14,7 +14,7 @@ if [ -f "$PID_FILE" ]; then
   PID=$(cat "$PID_FILE")
 
   # Check if the process with the stored PID is still running
-  if ps -p "$PID" > /dev/null; then
+  if ps -p "$PID" >/dev/null; then
     # The server is running, so stop it
     echo "Stopping the server with PID $PID"
     kill "$PID"
@@ -32,6 +32,6 @@ echo "Starting the Java application..."
 java "$MAIN_CLASS" &
 
 # Get the new process ID and save it to the PID file
-echo $! > "$PID_FILE"
+echo $! >"$PID_FILE"
 
 echo "Java application started with PID $!"

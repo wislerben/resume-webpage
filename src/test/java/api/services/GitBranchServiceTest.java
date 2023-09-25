@@ -7,23 +7,22 @@ import static org.mockito.Mockito.*;
 
 class GitBranchServiceTest {
 
-    private GitBranchService gitBranchService;
+  private GitBranchService gitBranchService;
 
-    @BeforeEach
-    void setUp() {
-        this.gitBranchService = mock(GitBranchService.class); // Mocking the GitBranchService
-    }
+  @BeforeEach
+  void setUp() {
+    this.gitBranchService = mock(GitBranchService.class); // Mocking the GitBranchService
+  }
 
-    @Test
-    void testGetActiveBranchName() {
-        String expectedBranchName = "feature/new-feature";
+  @Test
+  void testGetActiveBranchName() {
+    String expectedBranchName = "feature/new-feature";
 
-        // Mocking the behavior
-        when(gitBranchService.getGitBranch()).thenReturn(expectedBranchName);
+    // Mocking the behavior
+    when(gitBranchService.getGitBranch()).thenReturn(expectedBranchName);
 
-        String actualBranchName = gitBranchService.getGitBranch();
+    String actualBranchName = gitBranchService.getGitBranch();
 
-        assertEquals(expectedBranchName, actualBranchName);
-    }
-
+    assertEquals(expectedBranchName, actualBranchName);
+  }
 }
